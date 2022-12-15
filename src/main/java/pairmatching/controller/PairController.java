@@ -13,6 +13,18 @@ public class PairController {
     }
 
     public void run() {
-        String input = inputView.inputFunctionSelect();
+        inputFunctionSelect();
+
+    }
+
+    private String inputFunctionSelect() {
+        try {
+            String input = inputView.inputFunctionSelect();
+            validator.validateFunctionSelect(input);
+            return input;
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return inputFunctionSelect();
+        }
     }
 }

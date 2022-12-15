@@ -1,4 +1,4 @@
-package message;
+package pairmatching.message;
 
 public class NoticeMessage {
     public static final String INPUT_FUNCTION_SELECT =
