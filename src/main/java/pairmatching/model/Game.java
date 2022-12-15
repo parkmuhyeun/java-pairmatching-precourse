@@ -20,4 +20,8 @@ public class Game {
     public Mission getMission() {
         return mission;
     }
+
+    public Pair getPair() {
+        return pair;
+    }
 }
