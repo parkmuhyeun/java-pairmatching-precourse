@@ -10,8 +10,8 @@ public class Validator {
     private static final String PAIR_MATCHING = "1";
     private static final String PAIR_SEARCH = "2";
     private static final String PAIR_INIT = "3";
-    private static final String QUIT = "Q";
-    private static final String DELIMITER = ", ";
+    private static final String YES = "네";
+    private static final String NO = "아니오";
 
     public void validateFunctionSelect(String input) {
         if (!isFunctionSelect(input)) {
@@ -67,5 +67,15 @@ public class Validator {
         if (!Course.isCourse(course) || !Level.isLevel(level) || !Mission.isMission(mission)) {
             throw new IllegalArgumentException(ErrorMessage.INCORRECT_PAIR_MATCHING);
         }
+    }
+
+    public void validateRematching(String input) {
+        if (isRematchingCommand(input)) {
+
+        }
+    }
+
+    private boolean isRematchingCommand(String input) {
+        return input.equals(YES) || input.equals(NO);
     }
 }
