@@ -52,7 +52,14 @@ public class PairController {
             }
 
             if (select.equals(PAIR_SEARCH)) {
-                
+                GameInfoDTO gameInfoDTO = inputPairMatching();
+                Game game = gameRepository.findGameByCourseAndMission(gameInfoDTO);
+                if (game == null) {
+                    System.out.println(ErrorMessage.NO_SEARCH + "\n");
+                    continue;
+                }
+                Pair pair = game.getPair();
+                outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
             }
         }
     }
