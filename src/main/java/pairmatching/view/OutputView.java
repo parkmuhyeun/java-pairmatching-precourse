@@ -1,6 +1,8 @@
 package pairmatching.view;
 
 import pairmatching.dto.MatchingResultDTO;
+import pairmatching.message.NoticeMessage;
+
 import java.util.List;
 
 public class OutputView {
@@ -11,10 +13,11 @@ public class OutputView {
         List<String> crew = matchingResultDTO.getCrew();
         List<List<String>> partner = matchingResultDTO.getPartner();
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(NoticeMessage.OUTPUT_RESULT + NEW_LINE);
         for (int crewIndex = 0; crewIndex < crew.size(); crewIndex++) {
             stringBuilder.append(crew.get(crewIndex));
-            for (int partnerIndex = 0; partnerIndex < partner.size(); partnerIndex++) {
-                stringBuilder.append(DELIMITER + partner.get(partnerIndex));
+            for (int partnerIndex = 0; partnerIndex < partner.get(crewIndex).size(); partnerIndex++) {
+                stringBuilder.append(DELIMITER + partner.get(crewIndex).get(partnerIndex));
             }
             stringBuilder.append(NEW_LINE);
         }
