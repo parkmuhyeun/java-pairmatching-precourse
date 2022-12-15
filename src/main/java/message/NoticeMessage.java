@@ -1,7 +1,7 @@
 package message;
 
 public class NoticeMessage {
-    public static final String INPUT_SELECT =
+    public static final String INPUT_FUNCTION_SELECT =
             "기능을 선택하세요.\n" +
                     "1. 페어 매칭\n" +
                     "2. 페어 조회\n" +
