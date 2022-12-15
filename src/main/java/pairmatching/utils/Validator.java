@@ -13,6 +13,8 @@ public class Validator {
     private static final String QUIT = "Q";
     private static final String YES = "네";
     private static final String NO = "아니오";
+    private static final String DELIMITER = ", ";
+    private static final int PAIR_MATCHING_LENGTH = 3;
 
     public void validateFunctionSelect(String input) {
         if (!isFunctionSelect(input)) {
@@ -24,12 +26,21 @@ public class Validator {
         return input.equals(PAIR_MATCHING) || input.equals(PAIR_SEARCH) || input.equals(PAIR_INIT) | input.equals(QUIT);
     }
 
-    public void validatePairMatching(GameInfoDTO input) {
-        String course = input.getCourse();
-        String level = input.getLevel();
-        String mission = input.getMission();
+    public GameInfoDTO validatePairMatching(String input) {
+        String[] splitInput = input.split(DELIMITER);
+        checkLength(splitInput);
+        String course = splitInput[0];
+        String level = splitInput[1];
+        String mission = splitInput[2];
         checkType(course, level, mission);
         checkLevelMission(level, mission);
+        return new GameInfoDTO(course, level, mission);
+    }
+
+    private void checkLength(String[] splitInput) {
+        if (splitInput.length != PAIR_MATCHING_LENGTH) {
+            throw new IllegalArgumentException(ErrorMessage.INCORRECT_PAIR_MATCHING);
+        }
     }
 
     private void checkLevelMission(String level, String mission) {
