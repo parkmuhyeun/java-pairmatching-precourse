@@ -12,11 +12,15 @@ public enum Course {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static boolean isCourse(String input) {
         return Arrays.stream(values()).anyMatch(course -> course.name.equals(input));
     }
 
-    public String getName() {
-        return name;
+    public static Course toCourse(String input) {
+        return Arrays.stream(values()).filter(course -> course.name.equals(input)).findFirst().get();
     }
 }

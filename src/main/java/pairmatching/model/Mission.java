@@ -18,11 +18,15 @@ public enum Mission {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static boolean isMission(String input) {
         return Arrays.stream(values()).anyMatch(mission -> mission.name.equals(input));
     }
 
-    public String getName() {
-        return name;
+    public static Mission toMission(String input) {
+        return Arrays.stream(values()).filter(mission -> mission.name.equals(input)).findFirst().get();
     }
 }

@@ -1,5 +1,6 @@
 package pairmatching.utils;
 
+import pairmatching.dto.GameInfoDTO;
 import pairmatching.message.ErrorMessage;
 import pairmatching.model.Course;
 import pairmatching.model.Level;
@@ -22,11 +23,10 @@ public class Validator {
         return input.equals(PAIR_MATCHING) || input.equals(PAIR_SEARCH) || input.equals(PAIR_INIT) | input.equals(PAIR_INIT);
     }
 
-    public void validatePairMatching(String input) {
-        String[] splitInput = input.split(DELIMITER);
-        String course = splitInput[0];
-        String level = splitInput[1];
-        String mission = splitInput[2];
+    public void validatePairMatching(GameInfoDTO input) {
+        String course = input.getCourse();
+        String level = input.getLevel();
+        String mission = input.getMission();
         checkType(course, level, mission);
         checkLevelMission(level, mission);
     }

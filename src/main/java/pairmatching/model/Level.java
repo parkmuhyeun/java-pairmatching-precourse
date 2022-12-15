@@ -15,11 +15,15 @@ public enum Level {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static boolean isLevel(String input) {
         return Arrays.stream(values()).anyMatch(level -> level.name.equals(input));
     }
 
-    public String getName() {
-        return name;
+    public static Level toLevel(String input) {
+        return Arrays.stream(values()).filter(level -> level.name.equals(input)).findFirst().get();
     }
 }
