@@ -1,5 +1,7 @@
 package pairmatching.model;
 
+import pairmatching.dto.GameInfoDTO;
+
 import java.util.HashMap;
 
 public class GameRepository {
@@ -8,5 +10,9 @@ public class GameRepository {
     public Game saveGame(Game game) {
         repository.put(game.getCourse().getName() + game.getMission().getName(), game);
         return game;
+    }
+
+    public boolean hasGame(GameInfoDTO gameInfoDTO) {
+        return repository.containsKey(gameInfoDTO.getCourse() + gameInfoDTO.getMission());
     }
 }
