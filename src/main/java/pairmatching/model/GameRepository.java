@@ -15,4 +15,12 @@ public class GameRepository {
     public boolean hasGame(GameInfoDTO gameInfoDTO) {
         return repository.containsKey(gameInfoDTO.getCourse() + gameInfoDTO.getMission());
     }
+
+    public Game findGameByCourseAndMission(GameInfoDTO gameInfoDTO) {
+        String key = gameInfoDTO.getCourse() + gameInfoDTO.getMission();
+        if (repository.containsKey(key)) {
+            return repository.get(key);
+        }
+        return null;
+    }
 }
