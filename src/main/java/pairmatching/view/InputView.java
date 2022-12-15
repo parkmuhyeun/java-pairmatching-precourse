@@ -1,7 +1,7 @@
 package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import message.NoticeMessage;
+import pairmatching.message.NoticeMessage;
 
 public class InputView {
 
