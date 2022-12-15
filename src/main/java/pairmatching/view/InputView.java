@@ -24,4 +24,11 @@ public class InputView {
         System.out.println();
         return new GameInfoDTO(course, level, mission);
     }
+
+    public String inputRematching() {
+        System.out.println(NoticeMessage.INPUT_REMATCHING);
+        String input = Console.readLine();
+        System.out.println();
+        return input;
+    }
 }
