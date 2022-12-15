@@ -23,4 +23,8 @@ public class GameRepository {
         }
         return null;
     }
+
+    public void deleteAll() {
+        repository.clear();
+    }
 }
