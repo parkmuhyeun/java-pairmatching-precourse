@@ -7,11 +7,15 @@ public class InputView {
 
     public String inputFunctionSelect() {
         System.out.println(NoticeMessage.INPUT_FUNCTION_SELECT);
-        return Console.readLine();
+        String input = Console.readLine();
+        System.out.println();
+        return input;
     }
 
     public String inputPairMatching() {
         System.out.println(NoticeMessage.INPUT_PAIR_MATCHING);
-        return Console.readLine();
+        String input = Console.readLine();
+        System.out.println();
+        return input;
     }
 }

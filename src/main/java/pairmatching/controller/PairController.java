@@ -18,10 +18,20 @@ public class PairController {
         String select = inputFunctionSelect();
 
         if (select.equals(PAIR_MATCHING)) {
-            inputView.inputPairMatching();
-
+            inputPairMatching();
         }
 
+    }
+
+    private String inputPairMatching() {
+        try {
+            String input = inputView.inputPairMatching();
+            validator.validatePairMatching(input);
+            return input;
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return inputPairMatching();
+        }
     }
 
     private String inputFunctionSelect() {
