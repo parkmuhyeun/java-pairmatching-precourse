@@ -10,6 +10,7 @@ public class Validator {
     private static final String PAIR_MATCHING = "1";
     private static final String PAIR_SEARCH = "2";
     private static final String PAIR_INIT = "3";
+    private static final String QUIT = "Q";
     private static final String YES = "네";
     private static final String NO = "아니오";
 
@@ -20,7 +21,7 @@ public class Validator {
     }
 
     private boolean isFunctionSelect(String input) {
-        return input.equals(PAIR_MATCHING) || input.equals(PAIR_SEARCH) || input.equals(PAIR_INIT) | input.equals(PAIR_INIT);
+        return input.equals(PAIR_MATCHING) || input.equals(PAIR_SEARCH) || input.equals(PAIR_INIT) | input.equals(QUIT);
     }
 
     public void validatePairMatching(GameInfoDTO input) {
