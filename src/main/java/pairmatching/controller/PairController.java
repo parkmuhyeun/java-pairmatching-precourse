@@ -23,6 +23,7 @@ public class PairController {
     private static final String PAIR_INIT = "3";
     private static final String QUIT = "Q";
     private static final String YES = "네";
+    private static final String DELIMITER = ", ";
     private static final String BACKEND_FILE = "backend-crew.md";
     private static final String FRONTEND_FILE = "frontend-crew.md";
 
@@ -66,7 +67,7 @@ public class PairController {
             }
             Pair pair = game.getPair();
             outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
-        } catch (Exception exception) {
+        } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
     }
@@ -131,7 +132,7 @@ public class PairController {
             String input = inputView.inputRematching();
             validator.validateRematching(input);
             return input;
-        } catch (Exception exception) {
+        } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
             return inputRematching();
         }
@@ -190,10 +191,9 @@ public class PairController {
 
     private GameInfoDTO inputPairMatching() {
         try {
-            GameInfoDTO input = inputView.inputPairMatching();
-            validator.validatePairMatching(input);
-            return input;
-        } catch (Exception exception) {
+            String input = inputView.inputPairMatching();
+            return validator.validatePairMatching(input);
+        } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
             return inputPairMatching();
         }
@@ -204,7 +204,7 @@ public class PairController {
             String input = inputView.inputFunctionSelect();
             validator.validateFunctionSelect(input);
             return input;
-        } catch (Exception exception) {
+        } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
             return inputFunctionSelect();
         }

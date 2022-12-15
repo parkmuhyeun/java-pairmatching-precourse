@@ -14,15 +14,11 @@ public class InputView {
         return input;
     }
 
-    public GameInfoDTO inputPairMatching() {
+    public String inputPairMatching() {
         System.out.println(NoticeMessage.INPUT_PAIR_MATCHING);
         String input = Console.readLine();
-        String[] splitInput = input.split(DELIMITER);
-        String course = splitInput[0];
-        String level = splitInput[1];
-        String mission = splitInput[2];
         System.out.println();
-        return new GameInfoDTO(course, level, mission);
+        return input;
     }
 
     public String inputRematching() {
