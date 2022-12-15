@@ -9,7 +9,6 @@ import pairmatching.utils.FileReader;
 import pairmatching.utils.Validator;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -155,28 +154,31 @@ public class PairController {
             if (crew.checkPair(gameInfoDTO.getLevel(), partner.getName())) {
                 break;
             }
-
-            //TODO 분리
-            //페어 추가
-            List<String> partnersName = new ArrayList<>();
-            partnersName.add(partner.getName());
-            if (index + 3 == shuffleCrews.size()) {
-                partnersName.add(shuffleCrews.get(index + 2));
-            }
-            pair.addPair(crew.getName(), partnersName);
-            
-            // 제외 추가
-            crew.addExclusion(gameInfoDTO.getLevel(), partner.getName());
-            partner.addExclusion(gameInfoDTO.getLevel(), crew.getName());
-            if (index + 3 == shuffleCrews.size()) {
-                crew.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index + 2));
-                partner.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index + 2));
-                Crew lastCrew = crewRepository.getCrewByName(shuffleCrews.get(index + 2));
-                lastCrew.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index));
-                lastCrew.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index + 1));
-            }
+            addPair(shuffleCrews, pair, index, crew, partner);
+            addExclusion(gameInfoDTO, shuffleCrews, index, crew, partner);
         }
         return pair;
+    }
+
+    private void addExclusion(GameInfoDTO gameInfoDTO, List<String> shuffleCrews, int index, Crew crew, Crew partner) {
+        crew.addExclusion(gameInfoDTO.getLevel(), partner.getName());
+        partner.addExclusion(gameInfoDTO.getLevel(), crew.getName());
+        if (index + 3 == shuffleCrews.size()) {
+            crew.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index + 2));
+            partner.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index + 2));
+            Crew lastCrew = crewRepository.getCrewByName(shuffleCrews.get(index + 2));
+            lastCrew.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index));
+            lastCrew.addExclusion(gameInfoDTO.getLevel(), shuffleCrews.get(index + 1));
+        }
+    }
+
+    private void addPair(List<String> shuffleCrews, Pair pair, int index, Crew crew, Crew partner) {
+        List<String> partnersName = new ArrayList<>();
+        partnersName.add(partner.getName());
+        if (index + 3 == shuffleCrews.size()) {
+            partnersName.add(shuffleCrews.get(index + 2));
+        }
+        pair.addPair(crew.getName(), partnersName);
     }
 
     private Game getGame(GameInfoDTO gameInfoDTO, Pair pair) {
