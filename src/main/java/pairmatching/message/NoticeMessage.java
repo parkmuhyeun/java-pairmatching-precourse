@@ -22,4 +22,5 @@ public class NoticeMessage {
     public static final String INPUT_REMATCHING =
             "매칭 정보가 있습니다. 다시 매칭하시겠습니까?\n" +
             "네 | 아니오";
+    public static final String OUTPUT_RESULT = "페어 매칭 결과입니다.";
 }

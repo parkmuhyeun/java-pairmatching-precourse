@@ -20,6 +20,7 @@ import static pairmatching.model.Mission.toMission;
 
 public class PairController {
     private static final String PAIR_MATCHING = "1";
+    private static final String PAIR_SEARCH = "2";
     private static final String YES = "네";
     private static final String BACKEND_FILE = "backend-crew.md";
     private static final String FRONTEND_FILE = "frontend-crew.md";
@@ -48,6 +49,10 @@ public class PairController {
                 Game game = matchPair();
                 Pair pair = game.getPair();
                 outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
+            }
+
+            if (select.equals(PAIR_SEARCH)) {
+                
             }
         }
     }
