@@ -17,6 +17,9 @@ import static pairmatching.model.Mission.toMission;
 
 public class PairController {
     private static final String PAIR_MATCHING = "1";
+    private static final String YES = "네";
+    private static final String BACKEND_FILE = "backend-crew.md";
+    private static final String FRONTEND_FILE = "frontend-crew.md";
 
     private final InputView inputView;
     private final Validator validator;
@@ -37,14 +40,14 @@ public class PairController {
         while (true) {
             String select = inputFunctionSelect();
             if (select.equals(PAIR_MATCHING)) {
-                matchPair()
+                matchPair();
             }
         }
     }
 
     private void saveCrew() {
-        List<String> backendCrew = fileReader.read("backend-crew.md");
-        List<String> frontendCrew = fileReader.read("frontend-crew.md");
+        List<String> backendCrew = fileReader.read(BACKEND_FILE);
+        List<String> frontendCrew = fileReader.read(FRONTEND_FILE);
         for (int index = 0; index < backendCrew.size(); index++) {
             crewRepository.save(new Crew(Course.BACKEND, backendCrew.get(index), new HashMap<>()));
         }
@@ -54,10 +57,7 @@ public class PairController {
     }
 
     private Game matchPair() {
-        GameInfoDTO gameInfoDTO = inputPairMatching();
-        if (gameRepository.hasGame(gameInfoDTO)) {
-            inputView.inputRematching();
-        }
+        GameInfoDTO gameInfoDTO = getGameInfoDTO();
         List<String> crews = crewRepository.getCrewsNameByCourse(Course.toCourse(gameInfoDTO.getCourse()));
         List<String> shuffleCrews = Randoms.shuffle(crews);
         int count = 0;
@@ -68,6 +68,32 @@ public class PairController {
             }
             count++;
             validateMatch(count);
+        }
+    }
+
+    private GameInfoDTO getGameInfoDTO() {
+        GameInfoDTO gameInfoDTO;
+        while (true) {
+            gameInfoDTO = inputPairMatching();
+            if (needMatch(gameInfoDTO)) {
+                break;
+            }
+        }
+        return gameInfoDTO;
+    }
+
+    private boolean needMatch(GameInfoDTO gameInfoDTO) {
+        return !gameRepository.hasGame(gameInfoDTO) || (gameRepository.hasGame(gameInfoDTO) && inputRematching().equals(YES));
+    }
+
+    private String inputRematching() {
+        try {
+            String input = inputView.inputRematching();
+            validator.validateRematching(input);
+            return input;
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return inputRematching();
         }
     }
 
