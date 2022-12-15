@@ -9,4 +9,9 @@ public class InputView {
         System.out.println(NoticeMessage.INPUT_FUNCTION_SELECT);
         return Console.readLine();
     }
+
+    public String inputPairMatching() {
+        System.out.println(NoticeMessage.INPUT_PAIR_MATCHING);
+        return Console.readLine();
+    }
 }
