@@ -2,11 +2,14 @@ package pairmatching.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import pairmatching.dto.GameInfoDTO;
+import pairmatching.dto.MatchingResultDTO;
 import pairmatching.message.ErrorMessage;
 import pairmatching.model.*;
 import pairmatching.utils.FileReader;
 import pairmatching.utils.Validator;
 import pairmatching.view.InputView;
+import pairmatching.view.OutputView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +29,7 @@ public class PairController {
     private final CrewRepository crewRepository;
     private final FileReader fileReader;
     private final GameRepository gameRepository;
+    private final OutputView outputView;
 
     public PairController() {
         inputView = new InputView();
@@ -33,6 +37,7 @@ public class PairController {
         crewRepository = new CrewRepository();
         fileReader = new FileReader();
         gameRepository = new GameRepository();
+        outputView = new OutputView();
     }
 
     public void run() {
@@ -40,7 +45,9 @@ public class PairController {
         while (true) {
             String select = inputFunctionSelect();
             if (select.equals(PAIR_MATCHING)) {
-                matchPair();
+                Game game = matchPair();
+                Pair pair = game.getPair();
+                outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
             }
         }
     }
