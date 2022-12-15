@@ -4,6 +4,8 @@ import pairmatching.utils.Validator;
 import pairmatching.view.InputView;
 
 public class PairController {
+    private static final String PAIR_MATCHING = "1";
+
     private final InputView inputView;
     private final Validator validator;
 
@@ -13,7 +15,12 @@ public class PairController {
     }
 
     public void run() {
-        inputFunctionSelect();
+        String select = inputFunctionSelect();
+
+        if (select.equals(PAIR_MATCHING)) {
+            inputView.inputPairMatching();
+
+        }
 
     }
 
