@@ -22,6 +22,7 @@ public class PairController {
     private static final String PAIR_MATCHING = "1";
     private static final String PAIR_SEARCH = "2";
     private static final String PAIR_INIT = "3";
+    private static final String QUIT = "Q";
     private static final String YES = "네";
     private static final String BACKEND_FILE = "backend-crew.md";
     private static final String FRONTEND_FILE = "frontend-crew.md";
@@ -46,26 +47,42 @@ public class PairController {
         saveCrew();
         while (true) {
             String select = inputFunctionSelect();
-            if (select.equals(PAIR_MATCHING)) {
-                Game game = matchPair();
-                Pair pair = game.getPair();
-                outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
-            }
-
+            processMatching(select);
             if (select.equals(PAIR_SEARCH)) {
-                GameInfoDTO gameInfoDTO = inputPairMatching();
-                Game game = gameRepository.findGameByCourseAndMission(gameInfoDTO);
-                if (game == null) {
-                    System.out.println(ErrorMessage.NO_SEARCH + "\n");
-                    continue;
-                }
-                Pair pair = game.getPair();
-                outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
+                processSearch();
             }
+            processInit(select);
+            if (select.equals(QUIT)) {
+                break;
+            }
+        }
+    }
 
-            if (select.equals(PAIR_INIT)) {
-                gameRepository.deleteAll();
+    private void processSearch() {
+        try {
+            GameInfoDTO gameInfoDTO = inputPairMatching();
+            Game game = gameRepository.findGameByCourseAndMission(gameInfoDTO);
+            if (game == null) {
+                throw new IllegalArgumentException(ErrorMessage.NO_SEARCH + "\n");
             }
+            Pair pair = game.getPair();
+            outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private void processInit(String select) {
+        if (select.equals(PAIR_INIT)) {
+            gameRepository.deleteAll();
+        }
+    }
+
+    private void processMatching(String select) {
+        if (select.equals(PAIR_MATCHING)) {
+            Game game = matchPair();
+            Pair pair = game.getPair();
+            outputView.outputMatchingResult(new MatchingResultDTO(pair.getCrew(), pair.getPartner()));
         }
     }
 
