@@ -58,6 +58,9 @@ public class PairController {
         List<String> crews = crewRepository.getCrewsNameByCourse(Course.toCourse(gameInfoDTO.getCourse()));
         List<String> shuffleCrews = Randoms.shuffle(crews);
         int count = 0;
+        if (gameRepository.hasGame(gameInfoDTO)) {
+
+        }
         while (true) {
             Pair pair = match(gameInfoDTO, shuffleCrews);
             if (pair.getSize() == shuffleCrews.size() / 2) {
